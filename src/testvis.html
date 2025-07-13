@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Data Lineage</title>
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+  <input type="file" id="fileInput" accept=".json">
+  <input type="text" id="highlightInput" placeholder="Enter table name to highlight">
+  <button onclick="highlightNode()">Highlight</button>
+  <div id="mynetwork" style="width: 800px; height: 600px; border: 1px solid lightgray;"></div>
+  <script>
+    let nodes = new vis.DataSet([]);
+    let edges = new vis.DataSet([]);
+    let network = null;
+    let options = {
+  edges: {
+    arrows: {
+      to: {enabled: true, scaleFactor:1}
+    }
+  }
+};
+
+    document.getElementById('fileInput').addEventListener('change', function(evt) {
+      const file = evt.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const data = JSON.parse(e.target.result);
+        nodes.clear();
+        edges.clear();
+        nodes.add(data.nodes);
+        edges.add(data.edges);
+       if (network) {
+    network.setData({nodes: nodes, edges: edges});
+  } else {
+    network = new vis.Network(document.getElementById('mynetwork'), {nodes: nodes, edges: edges}, options);
+  }
+      };
+      reader.readAsText(file);
+    });
+
+    function highlightNode() {
+      const table = document.getElementById('highlightInput').value;
+      nodes.forEach(function(node) {
+        nodes.update({id: node.id, color: (node.id === table ? 'red' : undefined)});
+      });
+    }
+  </script>
+</body>
+</html>

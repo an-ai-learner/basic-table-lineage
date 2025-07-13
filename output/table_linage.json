@@ -1,0 +1,62 @@
+{
+  "nodes": [
+    {
+      "id": "raw_sales",
+      "label": "raw_sales"
+    },
+    {
+      "id": "raw_customers",
+      "label": "raw_customers"
+    },
+    {
+      "id": "stg_sales",
+      "label": "stg_sales"
+    },
+    {
+      "id": "stg_customers",
+      "label": "stg_customers"
+    },
+    {
+      "id": "agg_sales",
+      "label": "agg_sales"
+    },
+    {
+      "id": "report_sales",
+      "label": "report_sales"
+    },
+    {
+      "id": "report_customers",
+      "label": "report_customers"
+    }
+  ],
+  "edges": [
+    {
+      "from": "raw_sales",
+      "to": "stg_sales"
+    },
+    {
+      "from": "raw_customers",
+      "to": "stg_customers"
+    },
+    {
+      "from": "stg_sales",
+      "to": "agg_sales"
+    },
+    {
+      "from": "stg_sales",
+      "to": "report_sales"
+    },
+    {
+      "from": "stg_customers",
+      "to": "agg_sales"
+    },
+    {
+      "from": "stg_customers",
+      "to": "report_customers"
+    },
+    {
+      "from": "agg_sales",
+      "to": "report_sales"
+    }
+  ]
+}
