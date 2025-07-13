@@ -1,0 +1,8 @@
+name,upstream,downstream
+raw_sales,,stg_sales
+raw_customers,,stg_customers
+stg_sales,raw_sales,"agg_sales,report_sales"
+stg_customers,raw_customers,"agg_sales,report_customers"
+agg_sales,"stg_sales,stg_customers",report_sales
+report_sales,agg_sales,
+report_customers,stg_customers,
